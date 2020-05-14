@@ -12,19 +12,23 @@ address = "F4:4E:FD:43:77:CC"
 #for addr, name in nearby_devices:
 #    print("  {} - {}".format(addr, name))
 status = subprocess.call("bluetoothctl &",shell=True)
-
 #when Mooni is found, then it loads the script to wait for button press
 try:
+    print("Status", status)
     s = bluetooth.BluetoothSocket(bluetooth.RFCOMM)
-    s.connect((address,port))
+    s.bind((address,port))
+    s.listen(1)
+    client_socket, address = s.accept()
     print("Successfully connected!")
 except bluetooth.btcommon.BluetoothError as err:
     # Error handler
     pass
 
-while True:
-    data = s.recv(1024)
-    if len(data) == 0: break
-    print("received [%s]" % data)
+data = client_socket.recv(1024)
+
+print("received [%s]" % data)
+
+client_socket.close()
+s.close()
 
 
