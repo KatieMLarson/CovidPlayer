@@ -1,0 +1,18 @@
+1. Create VLC playlist and use VLC's random command interface
+2. We cd into the Music folder, randomly select a file, then run cvlc <filename>
+  ***Make sure the quit after playlist option is selected
+
+For randomizer: (2 functions - Random number generator and file name generator)
+1. Read filenames in Music directory
+2. Turn this into an array
+3. Randomly generate a number between 0 and the last index of the array (inclusive)
+4. Function will return the name of the file
+5. This name will use interpolation to chart the path in the subprocess call.
+
+For May 14: Report back on how bluetooth works (binding vs accept vs listen vs connect)
+Services & Gatt - what are the pieces of a bluetooth connection & device?
+
+Goal: when the button is detected, Pi should connect to the device and be able print out a statement
+when button is pressed.
+
+Button should be connected alongside the bluetooth speaker.
