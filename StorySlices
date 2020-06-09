@@ -16,3 +16,6 @@ Goal: when the button is detected, Pi should connect to the device and be able p
 when button is pressed.
 
 Button should be connected alongside the bluetooth speaker.
+
+Require pygame 2.0.0.dev6 (requires libsdl2-mixer 2.0.0) 
+you may have to run sudo apt-get install git curl libsdl2-mixer-2.0-0 libsdl2-image-2.0-0 libsdl2-2.0-0
