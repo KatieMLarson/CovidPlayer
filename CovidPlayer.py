@@ -1,35 +1,36 @@
+
+#! /usr/bin/env python3
+
 import pygame
 import time
 import MusicSelector
+from evdev import InputDevice, categorize, ecodes
 
-def main():
+def connectGamepad():
+    try:
+        return InputDevice('/dev/input/event3')
+    except:
+        print("I'm sleeping")
+        time.sleep(5)
+        return connectGamepad()
+
+def player(gamepad):
     pygame.init()
     pygame.mixer.pre_init(devicename='Muzen Button')
     pygame.mixer.init()
-    # Window needed to focus button click events
-    pygame.display.set_mode((400, 400))
-    while True:
-        event = pygame.event.wait()
-        if event.type == pygame.QUIT:
-            break
-        if event.type in (pygame.KEYDOWN, pygame.KEYUP):
-            key_name = pygame.key.name(event.key)
-            key_name = key_name.upper()
-            if event.type == pygame.KEYDOWN:
-                print ('{} key pressed'.format(key_name))
-            elif event.type == pygame.KEYUP:
-                song = MusicSelector.main()
-                songSound = pygame.mixer.music.load(song)
-                pygame.mixer.music.play()
-                while pygame.mixer.music.get_busy():
-                    pygame.event.wait()
-                print ('{} key released'.format(key_name))
-                
-    pygame.quit()
-
+    for event in gamepad.read_loop():
+        if event.type == ecodes.EV_KEY:
+            if event.value == 00:
+                if event.code == 115:
+                    song = MusicSelector.main()
+                    songSound = pygame.mixer.music.load(song)
+                    pygame.mixer.music.play()
+                    print('Playing {}' .format(song))
+                    while pygame.mixer.music.get_busy():
+                        pygame.event.wait()
+def main():
+    gamepad = connectGamepad()
+    player(gamepad)
 
 if __name__ == '__main__':
     main()
-
-
-

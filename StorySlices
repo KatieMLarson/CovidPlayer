@@ -19,3 +19,28 @@ Button should be connected alongside the bluetooth speaker.
 
 Require pygame 2.0.0.dev6 (requires libsdl2-mixer 2.0.0) 
 you may have to run sudo apt-get install git curl libsdl2-mixer-2.0-0 libsdl2-image-2.0-0 libsdl2-2.0-0
+
+Address for Muzen Button: F4:4E:FD:43:77:CC
+
+If the speaker doesn't autoconnect:
+
+bluetoothctl
+**inside bluetoothctl**
+pair F4:4E:FD:43:77:CC
+trust F4:4E:FD:43:77:CC
+connect F4:4E:FD:43:77:CC
+
+This will reconnect/trust Muzen button. Speaker icon should blue
+
+Steps: 
+
+when the pi starts (this file should run from root cron)
+
+Make sure button and speaker are on (user)
+connect to button and speaker
+run CovidPlayer
+
+***make sure this can run without monitor***
+
+We either need to enforce a version of pygame to run in the file (on start up_ or figure out why the startup script would even run pygame 1.9.4
+
